@@ -2,10 +2,12 @@ import SwiftUI
 
 struct OverlayView: View {
     @Environment(AppState.self) var appState
-    let focusedIndex: Int
+    @Environment(OverlayState.self) var overlayState
     var onGroupSelected: (DesktopGroup) -> Void
 
     var body: some View {
+        let focusedIndex = overlayState.focusedIndex
+
         VStack(spacing: 0) {
             // Focused group name at top
             if !appState.groups.isEmpty {
@@ -36,6 +38,7 @@ struct OverlayView: View {
             RoundedRectangle(cornerRadius: 22)
                 .fill(Color(white: 0.12))
         )
+        .animation(.easeInOut(duration: 0.15), value: focusedIndex)
     }
 }
 

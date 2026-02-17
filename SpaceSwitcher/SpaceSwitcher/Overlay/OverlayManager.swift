@@ -1,13 +1,19 @@
 import AppKit
 import SwiftUI
 
+@Observable
+@MainActor
+final class OverlayState {
+    var focusedIndex: Int = 0
+}
+
 @MainActor
 final class OverlayManager {
     private var panels: [OverlayPanel] = []
     private var appState: AppState
+    private var overlayState = OverlayState()
     private var clickMonitor: Any?
     private var keyMonitor: Any?
-    private var focusedIndex: Int = 0
 
     var isVisible: Bool { panels.contains { $0.isVisible } }
 
@@ -34,12 +40,12 @@ final class OverlayManager {
         // Start focused on the active group
         if let activeID = appState.activeGroupID,
            let idx = appState.groups.firstIndex(where: { $0.id == activeID }) {
-            focusedIndex = idx
+            overlayState.focusedIndex = idx
         } else {
-            focusedIndex = 0
+            overlayState.focusedIndex = 0
         }
 
-        rebuildPanels()
+        buildPanels()
 
         // Keyboard handling via local monitor (reliable for non-activating panels)
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
@@ -64,46 +70,35 @@ final class OverlayManager {
             dismiss()
             return true
         case 36: // Return
-            appState.switchToGroup(groups[focusedIndex])
-            dismiss()
+            dismissThenSwitch(groups[overlayState.focusedIndex])
             return true
         case 123: // Left arrow
-            focusedIndex = (focusedIndex - 1 + groups.count) % groups.count
-            rebuildPanels()
+            overlayState.focusedIndex = (overlayState.focusedIndex - 1 + groups.count) % groups.count
             return true
         case 124: // Right arrow
-            focusedIndex = (focusedIndex + 1) % groups.count
-            rebuildPanels()
+            overlayState.focusedIndex = (overlayState.focusedIndex + 1) % groups.count
             return true
         default:
             // Number keys 1-9
             if let chars = event.characters, let digit = Int(chars), digit >= 1, digit <= groups.count {
-                appState.switchToGroup(groups[digit - 1])
-                dismiss()
+                dismissThenSwitch(groups[digit - 1])
                 return true
             }
             return false
         }
     }
 
-    private func rebuildPanels() {
-        // Remove old panels
-        for panel in panels {
-            panel.orderOut(nil)
-        }
-        panels.removeAll()
-
+    private func buildPanels() {
         for screen in NSScreen.screens {
             let panel = OverlayPanel(contentRect: NSRect(x: 0, y: 0, width: 520, height: 500))
 
             let overlayView = OverlayView(
-                focusedIndex: focusedIndex,
                 onGroupSelected: { [weak self] group in
-                    self?.appState.switchToGroup(group)
-                    self?.dismiss()
+                    self?.dismissThenSwitch(group)
                 }
             )
             .environment(appState)
+            .environment(overlayState)
 
             let hostingView = NSHostingView(rootView: overlayView)
             panel.contentView = hostingView
@@ -122,8 +117,18 @@ final class OverlayManager {
         }
     }
 
+    /// Dismiss the overlay, then switch spaces after a brief delay to avoid flashing.
+    private func dismissThenSwitch(_ group: DesktopGroup) {
+        dismiss()
+        let state = appState
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            state.switchToGroup(group)
+        }
+    }
+
     func dismiss() {
         for panel in panels {
+            panel.alphaValue = 0
             panel.orderOut(nil)
         }
         panels.removeAll()
