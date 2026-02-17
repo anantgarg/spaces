@@ -152,11 +152,41 @@ struct GroupsSettingsView: View {
 // MARK: - General Tab
 
 struct GeneralSettingsView: View {
+    @Environment(AppState.self) var appState
+    @State private var syncMessage: String?
+
     var body: some View {
         Form {
             HotkeySettingsView()
             LaunchAtLogin.Toggle("Launch at login")
+
+            if Bundle.main.bundleIdentifier == "com.spaceswitcher.Spaces" {
+                Divider()
+
+                HStack {
+                    Button("Sync from Development") {
+                        syncFromDev()
+                    }
+                    if let message = syncMessage {
+                        Text(message)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
         }
         .padding()
+    }
+
+    private func syncFromDev() {
+        guard let devDefaults = UserDefaults(suiteName: "com.spaceswitcher.SpaceSwitcher"),
+              let data = devDefaults.data(forKey: "desktopGroups"),
+              let groups = try? JSONDecoder().decode([DesktopGroup].self, from: data) else {
+            syncMessage = "No dev data found"
+            return
+        }
+        appState.groups = groups
+        appState.saveGroups()
+        syncMessage = "Synced \(groups.count) groups"
     }
 }

@@ -37,15 +37,6 @@ struct MenuBarView: View {
 
         Divider()
 
-        // Only show in production app
-        if Bundle.main.bundleIdentifier == "com.spaceswitcher.Spaces" {
-            Button("Sync from Development") {
-                syncFromDev()
-            }
-
-            Divider()
-        }
-
         Button("Quit Spaces") {
             NSApplication.shared.terminate(nil)
         }
@@ -69,13 +60,5 @@ struct MenuBarView: View {
         appState.pendingSelectGroupID = newGroup.id
 
         openSettings()
-    }
-
-    private func syncFromDev() {
-        guard let devDefaults = UserDefaults(suiteName: "com.spaceswitcher.SpaceSwitcher"),
-              let data = devDefaults.data(forKey: "desktopGroups"),
-              let groups = try? JSONDecoder().decode([DesktopGroup].self, from: data) else { return }
-        appState.groups = groups
-        appState.saveGroups()
     }
 }
