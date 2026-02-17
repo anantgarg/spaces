@@ -62,10 +62,10 @@ private struct SwitcherIcon: View {
                         .frame(width: tileSize, height: tileSize)
 
                     // Colorful icon
-                    Image(systemName: group.icon)
-                        .font(.system(size: 46, weight: .medium))
-                        .foregroundStyle(group.color)
-                        .frame(width: tileSize, height: tileSize)
+                    Image(group.icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
                 }
 
                 // Group name

@@ -4,11 +4,11 @@ import SwiftUI
 struct DesktopGroup: Identifiable, Codable, Hashable {
     let id: UUID
     var name: String
-    var icon: String       // SF Symbol name
-    var colorName: String  // Color identifier
+    var icon: String       // Icon asset name
+    var colorName: String  // Unused legacy field, kept for decoding compatibility
     var monitorSpaces: [String: Int]  // "Left" → 2, "Right" → 3
 
-    init(id: UUID = UUID(), name: String, icon: String = "desktopcomputer",
+    init(id: UUID = UUID(), name: String, icon: String = "Labtop",
          colorName: String = "blue", monitorSpaces: [String: Int] = [:]) {
         self.id = id
         self.name = name
@@ -17,75 +17,114 @@ struct DesktopGroup: Identifiable, Codable, Hashable {
         self.monitorSpaces = monitorSpaces
     }
 
-    var color: Color {
-        Self.colorMap[colorName] ?? .blue
-    }
-
-    /// Pick a random icon + color combo.
+    /// Pick a random icon.
     static func randomAppearance() -> (icon: String, color: String) {
-        let icon = availableIcons.randomElement() ?? "desktopcomputer"
-        let color = availableColors.randomElement()?.name ?? "blue"
-        return (icon, color)
+        let icon = availableIcons.randomElement() ?? "Labtop"
+        return (icon, "blue")
     }
 
     // MARK: - Available Icons
 
     static let availableIcons = [
-        "desktopcomputer",
-        "laptopcomputer",
-        "display",
-        "terminal.fill",
-        "globe",
-        "envelope.fill",
-        "bubble.left.and.bubble.right.fill",
-        "video.fill",
-        "music.note",
-        "paintbrush.fill",
-        "photo.fill",
-        "doc.text.fill",
-        "folder.fill",
-        "gear",
-        "wrench.and.screwdriver.fill",
-        "gamecontroller.fill",
-        "cart.fill",
-        "creditcard.fill",
-        "chart.bar.fill",
-        "books.vertical.fill",
-        "graduationcap.fill",
-        "briefcase.fill",
-        "hammer.fill",
-        "star.fill",
-        "heart.fill",
-        "bolt.fill",
-        "flame.fill",
-        "leaf.fill",
-        "camera.fill",
-        "headphones",
+        "3d",
+        "Add-Device",
+        "Airport-Railroad",
+        "Android-Setting",
+        "App-Window",
+        "Astrology-Study",
+        "Baby",
+        "Baby-Cart-Quality",
+        "Backpack",
+        "Balloon-Tour",
+        "Bigben",
+        "Bluetooth",
+        "Boarding-Pass",
+        "Book-Library",
+        "Bug",
+        "Bus-Route-Info",
+        "Cancel-2",
+        "Candy-Cane",
+        "Checking-Order",
+        "Cloud-Data-Transfer",
+        "Coding",
+        "Compass-1",
+        "Construction-Area",
+        "Control",
+        "Cursor",
+        "Dangerous-Chemical-Lab",
+        "Date-Time-Setting",
+        "Drawer-Inbox",
+        "Drone",
+        "Earpod-Connected",
+        "Easter-Egg",
+        "Education-Degree",
+        "Eiffel-Tower",
+        "Elevator-Lift",
+        "Face-Id-1",
+        "Filming-Movie",
+        "Ghost",
+        "Gift-Reciept",
+        "Globe-1",
+        "Graph-Bar",
+        "Graph-Pie",
+        "Guitar-Amplifier",
+        "Help",
+        "Information-Toilet-Location",
+        "Instruments-Piano",
+        "Key",
+        "Keyboard-Direction",
+        "Lab-Tools",
+        "Labtop",
+        "Library-Research",
+        "Love",
+        "Mail",
+        "Mailbox-2",
+        "Medal",
+        "Mobile-Phone",
+        "Money-Briefcase",
+        "Money-Coin-2",
+        "Muslim",
+        "Nuclear-2",
+        "On-Off-1",
+        "Online-Information",
+        "Passport",
+        "Pen",
+        "Photography",
+        "Picture",
+        "Pile-Of-Money",
+        "Plant-1",
+        "Product-Cloth",
+        "Programming",
+        "Qr-Code",
+        "Reciept-1",
+        "Recycle",
+        "Refund-Product-Reciept",
+        "Reward",
+        "Rocket-Launch-Chart",
+        "Sad-Song",
+        "Safety",
+        "School",
+        "Science-Lab",
+        "Search",
+        "Sent-From-Computer",
+        "Server-Network",
+        "Shop-Store",
+        "Slate",
+        "Smart-Tv",
+        "Snowman",
+        "Solar-Power-Battery",
+        "Star",
+        "Sun",
+        "Sun-Clound-Weather",
+        "Taxi",
+        "Telescope",
+        "Time",
+        "Validation-1",
+        "View-Mail",
+        "Vr-Goggle",
+        "Wand",
+        "Winter-Day-Activities",
+        "World-Nature",
+        "Wrench",
     ]
-
-    // MARK: - Available Colors
-
-    struct NamedColor: Hashable {
-        let name: String
-        let color: Color
-    }
-
-    static let availableColors: [NamedColor] = [
-        NamedColor(name: "blue",    color: .blue),
-        NamedColor(name: "purple",  color: .purple),
-        NamedColor(name: "pink",    color: .pink),
-        NamedColor(name: "red",     color: .red),
-        NamedColor(name: "orange",  color: .orange),
-        NamedColor(name: "yellow",  color: .yellow),
-        NamedColor(name: "green",   color: .green),
-        NamedColor(name: "mint",    color: .mint),
-        NamedColor(name: "teal",    color: .teal),
-        NamedColor(name: "cyan",    color: .cyan),
-        NamedColor(name: "indigo",  color: .indigo),
-        NamedColor(name: "brown",   color: .brown),
-    ]
-
-    static let colorMap: [String: Color] = Dictionary(
-        uniqueKeysWithValues: availableColors.map { ($0.name, $0.color) }
-    )
 }

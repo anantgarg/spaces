@@ -29,8 +29,10 @@ struct GroupsSettingsView: View {
                 List(selection: $selectedGroupID) {
                     ForEach(appState.groups) { group in
                         HStack(spacing: 8) {
-                            Image(systemName: group.icon)
-                                .foregroundStyle(group.color)
+                            Image(group.icon)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 20, height: 20)
                             Text(group.name)
                         }
                         .tag(group.id)

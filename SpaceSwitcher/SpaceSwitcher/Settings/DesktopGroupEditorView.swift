@@ -5,8 +5,7 @@ struct DesktopGroupEditorView: View {
     let group: DesktopGroup
 
     @State private var name: String = ""
-    @State private var icon: String = "desktopcomputer"
-    @State private var colorName: String = "blue"
+    @State private var icon: String = "Labtop"
     @State private var monitorSpaces: [String: Int] = [:]
 
     var body: some View {
@@ -18,7 +17,7 @@ struct DesktopGroupEditorView: View {
                 }
 
                 LabeledContent("Icon:") {
-                    IconPicker(selectedIcon: $icon, selectedColor: $colorName)
+                    IconPicker(selectedIcon: $icon)
                 }
             }
 
@@ -48,7 +47,6 @@ struct DesktopGroupEditorView: View {
                     var updated = group
                     updated.name = name
                     updated.icon = icon
-                    updated.colorName = colorName
                     updated.monitorSpaces = monitorSpaces
                     appState.updateGroup(updated)
                 }
@@ -61,13 +59,11 @@ struct DesktopGroupEditorView: View {
         .onAppear {
             name = group.name
             icon = group.icon
-            colorName = group.colorName
             monitorSpaces = group.monitorSpaces
         }
         .onChange(of: group.id) {
             name = group.name
             icon = group.icon
-            colorName = group.colorName
             monitorSpaces = group.monitorSpaces
         }
     }
