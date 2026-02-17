@@ -6,7 +6,7 @@ struct SpaceSwitcherApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        MenuBarExtra("SpaceSwitcher", systemImage: "rectangle.3.group") {
+        MenuBarExtra("Spaces", systemImage: "rectangle.3.group.fill") {
             MenuBarView()
                 .environment(appDelegate.appState)
         }

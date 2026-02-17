@@ -6,6 +6,7 @@ final class AppState {
     var groups: [DesktopGroup] = []
     var monitors: [MonitorInfo] = []
     var activeGroupID: UUID?
+    var pendingSelectGroupID: UUID?
 
     private let persistence = PersistenceManager()
 

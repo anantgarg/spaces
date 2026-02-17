@@ -40,14 +40,29 @@ struct GroupsSettingsView: View {
                 }
                 .listStyle(.bordered)
 
-                HStack(spacing: 4) {
+                HStack(spacing: 2) {
                     Button(action: addGroup) {
                         Image(systemName: "plus")
+                            .frame(width: 24, height: 24)
                     }
                     Button(action: removeSelected) {
                         Image(systemName: "minus")
+                            .frame(width: 24, height: 24)
                     }
                     .disabled(selectedGroupID == nil)
+
+                    Spacer()
+
+                    Button(action: moveSelectedUp) {
+                        Image(systemName: "chevron.up")
+                            .frame(width: 24, height: 24)
+                    }
+                    .disabled(!canMoveUp)
+                    Button(action: moveSelectedDown) {
+                        Image(systemName: "chevron.down")
+                            .frame(width: 24, height: 24)
+                    }
+                    .disabled(!canMoveDown)
                 }
                 .padding(8)
             }
@@ -67,6 +82,18 @@ struct GroupsSettingsView: View {
             }
         }
         .padding()
+        .onAppear {
+            if let pending = appState.pendingSelectGroupID {
+                selectedGroupID = pending
+                appState.pendingSelectGroupID = nil
+            }
+        }
+        .onChange(of: appState.pendingSelectGroupID) {
+            if let pending = appState.pendingSelectGroupID {
+                selectedGroupID = pending
+                appState.pendingSelectGroupID = nil
+            }
+        }
     }
 
     private func addGroup() {
@@ -92,6 +119,33 @@ struct GroupsSettingsView: View {
               let group = appState.groups.first(where: { $0.id == id }) else { return }
         appState.deleteGroup(group)
         selectedGroupID = nil
+    }
+
+    private var selectedIndex: Int? {
+        guard let id = selectedGroupID else { return nil }
+        return appState.groups.firstIndex(where: { $0.id == id })
+    }
+
+    private var canMoveUp: Bool {
+        guard let idx = selectedIndex else { return false }
+        return idx > 0
+    }
+
+    private var canMoveDown: Bool {
+        guard let idx = selectedIndex else { return false }
+        return idx < appState.groups.count - 1
+    }
+
+    private func moveSelectedUp() {
+        guard let idx = selectedIndex, idx > 0 else { return }
+        appState.groups.swapAt(idx, idx - 1)
+        appState.saveGroups()
+    }
+
+    private func moveSelectedDown() {
+        guard let idx = selectedIndex, idx < appState.groups.count - 1 else { return }
+        appState.groups.swapAt(idx, idx + 1)
+        appState.saveGroups()
     }
 }
 

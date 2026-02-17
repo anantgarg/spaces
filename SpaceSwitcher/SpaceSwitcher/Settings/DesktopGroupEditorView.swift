@@ -7,6 +7,7 @@ struct DesktopGroupEditorView: View {
     @State private var name: String = ""
     @State private var icon: String = "Labtop"
     @State private var monitorSpaces: [String: Int] = [:]
+    @FocusState private var isNameFocused: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -14,6 +15,7 @@ struct DesktopGroupEditorView: View {
                 LabeledContent("Group Name:") {
                     TextField("", text: $name)
                         .textFieldStyle(.roundedBorder)
+                        .focused($isNameFocused)
                 }
 
                 LabeledContent("Icon:") {
@@ -62,11 +64,21 @@ struct DesktopGroupEditorView: View {
             name = group.name
             icon = group.icon
             monitorSpaces = group.monitorSpaces
+            if group.name == "New Group" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    isNameFocused = true
+                }
+            }
         }
         .onChange(of: group.id) {
             name = group.name
             icon = group.icon
             monitorSpaces = group.monitorSpaces
+            if group.name == "New Group" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    isNameFocused = true
+                }
+            }
         }
     }
 }

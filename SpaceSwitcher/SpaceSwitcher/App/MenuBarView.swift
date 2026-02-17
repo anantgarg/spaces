@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuBarView: View {
     @Environment(AppState.self) var appState
+    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         ForEach(appState.groups) { group in
@@ -26,11 +27,9 @@ struct MenuBarView: View {
             Divider()
         }
 
-        Button("Show Switcher") {
-            NotificationCenter.default.post(name: .showOverlay, object: nil)
+        Button("New Group\u{2026}") {
+            addGroupFromMenu()
         }
-
-        Divider()
 
         SettingsLink {
             Text("Settings\u{2026}")
@@ -38,9 +37,28 @@ struct MenuBarView: View {
 
         Divider()
 
-        Button("Quit SpaceSwitcher") {
+        Button("Quit Spaces") {
             NSApplication.shared.terminate(nil)
         }
         .keyboardShortcut("q")
+    }
+
+    private func addGroupFromMenu() {
+        let currentSpaces = SpaceSwitcherService.getCurrentSpacePerDisplay()
+        let monitorSpaces = Dictionary(uniqueKeysWithValues: appState.monitors.map { monitor -> (String, Int) in
+            if let currentSpaceID = currentSpaces[monitor.displayUUID],
+               let spaceInfo = monitor.spaces.first(where: { $0.spaceID == currentSpaceID }) {
+                return (monitor.id, spaceInfo.desktopNumber)
+            }
+            return (monitor.id, monitor.desktopNumbers.first ?? 1)
+        })
+
+        let appearance = DesktopGroup.randomAppearance()
+        let newGroup = DesktopGroup(name: "New Group", icon: appearance.icon,
+                                    colorName: appearance.color, monitorSpaces: monitorSpaces)
+        appState.addGroup(newGroup)
+        appState.pendingSelectGroupID = newGroup.id
+
+        openSettings()
     }
 }

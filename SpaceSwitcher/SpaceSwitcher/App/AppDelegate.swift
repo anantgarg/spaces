@@ -45,12 +45,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         appState.refreshMonitors()
 
+        // Ensure the settings window appears on the current space
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(windowDidBecomeVisible(_:)),
+            name: NSWindow.didBecomeKeyNotification,
+            object: nil
+        )
+
         // First run: open settings if no groups are configured
         if appState.groups.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
             }
         }
+    }
+
+    @objc private func windowDidBecomeVisible(_ notification: Notification) {
+        guard let window = notification.object as? NSWindow,
+              !(window is OverlayPanel) else { return }
+        window.collectionBehavior.insert(.moveToActiveSpace)
     }
 
     @objc private func showOverlay() {
