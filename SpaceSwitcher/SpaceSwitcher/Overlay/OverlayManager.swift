@@ -24,6 +24,10 @@ final class OverlayManager {
     func show() {
         dismiss()  // Clean up any existing panel
 
+        // Refresh detection so the overlay highlights the current group
+        appState.refreshMonitors()
+        appState.detectActiveGroup()
+
         let panel = OverlayPanel(contentRect: NSRect(x: 0, y: 0, width: 520, height: 500))
 
         let overlayView = OverlayView(

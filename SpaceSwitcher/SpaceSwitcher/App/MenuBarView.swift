@@ -4,9 +4,6 @@ struct MenuBarView: View {
     @Environment(AppState.self) var appState
 
     var body: some View {
-        // Detect active group each time the menu renders (covers manual space switches)
-        let _ = appState.detectActiveGroup()
-
         ForEach(appState.groups) { group in
             Button {
                 appState.switchToGroup(group)

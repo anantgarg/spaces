@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 @Observable
@@ -10,6 +11,19 @@ final class AppState {
 
     init() {
         groups = persistence.loadGroups()
+        refreshMonitors()
+        detectActiveGroup()
+
+        // Re-detect active group whenever the user switches spaces (e.g. via Mission Control)
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(spaceDidChange),
+            name: NSWorkspace.activeSpaceDidChangeNotification,
+            object: nil
+        )
+    }
+
+    @objc private func spaceDidChange() {
         refreshMonitors()
         detectActiveGroup()
     }
