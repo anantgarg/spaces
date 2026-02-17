@@ -38,10 +38,16 @@ echo "Installing to $DEST..."
 rm -rf "$DEST"
 mv "$TEMP_APP" "$DEST"
 
+# Refresh icon cache so the app icon appears
+touch "$DEST"
+/System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister -f "$DEST"
+killall Dock 2>/dev/null || true
+
 # Reset accessibility so macOS re-prompts
 tccutil reset Accessibility "$PROD_BUNDLE_ID" 2>/dev/null || true
 
 # Launch the app
+sleep 1
 echo "Launching $PROD_NAME..."
 open "$DEST"
 
