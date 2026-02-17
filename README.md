@@ -1,12 +1,19 @@
 # Spaces
 
-A macOS menu bar app that lets you switch all your monitors to a named group of desktops with a single click or hotkey. Think of it as "workspaces" for multi-monitor setups.
+A macOS menu bar app that links Spaces across multiple monitors into named project groups, so you can switch your entire workspace with a single click or hotkey.
 
 ![Spaces overlay switcher](screenshot.png)
 
-## What it does
+## The problem
 
-If you use multiple monitors with multiple macOS Spaces (virtual desktops) on each, switching context means clicking through Mission Control on every screen. Spaces fixes that:
+Mission Control and macOS Spaces are powerful, but they fall apart on a multi-monitor setup:
+
+1. **Spaces have no names.** In Mission Control they all look the same, so it's hard to remember which Space is for which project.
+2. **Spaces switch independently per monitor.** Even if you set up a nice workspace across both screens, switching on one display doesn't switch the other. You end up manually moving both monitors just to stay in the same context.
+
+## The solution
+
+Spaces lets you link one Space on Monitor A with one Space on Monitor B and treat them as a single named group. Once linked, you can switch both together — your workspace stays aligned and you can jump between projects without losing your setup.
 
 - **Define groups** like "Work", "Music", "Chat" — each group maps every monitor to a specific desktop
 - **Switch instantly** — click a group in the menu bar or press the hotkey, and all monitors jump to the right desktops simultaneously
