@@ -47,8 +47,8 @@ private struct SwitcherIcon: View {
     let isFocused: Bool
     let action: () -> Void
 
-    private let iconSize: CGFloat = 80
-    private let frameSize: CGFloat = 96
+    private let iconSize: CGFloat = 128
+    private let frameSize: CGFloat = 144
 
     var body: some View {
         Button(action: action) {
