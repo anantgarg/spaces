@@ -5,13 +5,21 @@ struct DesktopGroupEditorView: View {
     let group: DesktopGroup
 
     @State private var name: String = ""
+    @State private var icon: String = "desktopcomputer"
+    @State private var colorName: String = "blue"
     @State private var monitorSpaces: [String: Int] = [:]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            LabeledContent("Group Name:") {
-                TextField("", text: $name)
-                    .textFieldStyle(.roundedBorder)
+            HStack(spacing: 16) {
+                LabeledContent("Group Name:") {
+                    TextField("", text: $name)
+                        .textFieldStyle(.roundedBorder)
+                }
+
+                LabeledContent("Icon:") {
+                    IconPicker(selectedIcon: $icon, selectedColor: $colorName)
+                }
             }
 
             VStack(alignment: .leading, spacing: 8) {
@@ -39,6 +47,8 @@ struct DesktopGroupEditorView: View {
                 Button("Apply") {
                     var updated = group
                     updated.name = name
+                    updated.icon = icon
+                    updated.colorName = colorName
                     updated.monitorSpaces = monitorSpaces
                     appState.updateGroup(updated)
                 }
@@ -50,10 +60,14 @@ struct DesktopGroupEditorView: View {
         .padding()
         .onAppear {
             name = group.name
+            icon = group.icon
+            colorName = group.colorName
             monitorSpaces = group.monitorSpaces
         }
         .onChange(of: group.id) {
             name = group.name
+            icon = group.icon
+            colorName = group.colorName
             monitorSpaces = group.monitorSpaces
         }
     }

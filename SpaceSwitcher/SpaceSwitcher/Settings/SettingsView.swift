@@ -28,8 +28,12 @@ struct GroupsSettingsView: View {
             VStack(spacing: 0) {
                 List(selection: $selectedGroupID) {
                     ForEach(appState.groups) { group in
-                        Text(group.name)
-                            .tag(group.id)
+                        HStack(spacing: 8) {
+                            Image(systemName: group.icon)
+                                .foregroundStyle(group.color)
+                            Text(group.name)
+                        }
+                        .tag(group.id)
                     }
                 }
                 .listStyle(.bordered)
@@ -64,12 +68,19 @@ struct GroupsSettingsView: View {
     }
 
     private func addGroup() {
-        let newGroup = DesktopGroup(
-            name: "New Group",
-            monitorSpaces: Dictionary(
-                uniqueKeysWithValues: appState.monitors.map { ($0.id, $0.desktopNumbers.first ?? 1) }
-            )
-        )
+        // Default to the currently active space on each monitor
+        let currentSpaces = SpaceSwitcherService.getCurrentSpacePerDisplay()
+        let monitorSpaces = Dictionary(uniqueKeysWithValues: appState.monitors.map { monitor -> (String, Int) in
+            if let currentSpaceID = currentSpaces[monitor.displayUUID],
+               let spaceInfo = monitor.spaces.first(where: { $0.spaceID == currentSpaceID }) {
+                return (monitor.id, spaceInfo.desktopNumber)
+            }
+            return (monitor.id, monitor.desktopNumbers.first ?? 1)
+        })
+
+        let appearance = DesktopGroup.randomAppearance()
+        let newGroup = DesktopGroup(name: "New Group", icon: appearance.icon,
+                                    colorName: appearance.color, monitorSpaces: monitorSpaces)
         appState.addGroup(newGroup)
         selectedGroupID = newGroup.id
     }

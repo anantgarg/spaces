@@ -16,8 +16,15 @@ final class OverlayPanel: NSPanel {
         collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
         isOpaque = false
         backgroundColor = .clear
-        hasShadow = true
+        hasShadow = false
         isMovableByWindowBackground = false
         hidesOnDeactivate = false
+        appearance = NSAppearance(named: .vibrantDark)
+        acceptsMouseMovedEvents = true
+    }
+
+    // Ensure the panel receives key events even as a non-activating panel
+    override func keyDown(with event: NSEvent) {
+        // Let SwiftUI handle it — don't call super which would beep
     }
 }

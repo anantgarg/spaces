@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,8 +14,10 @@
 		43FFCE9B9289DE0F5D877FE7 /* OverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CBF89239D977C5E6018C9B /* OverlayManager.swift */; };
 		63289137A46C186245F06E95 /* MonitorMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC4B141B8E046513571E6E /* MonitorMappingView.swift */; };
 		658143785DF5075AC26B6C27 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821E8BB46F8C5B39C68CF0B /* MenuBarView.swift */; };
+		6A511CA2AB59B4DB04BFA6D9 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA33362420C9BC4093D0EC /* IconPicker.swift */; };
 		6A742D2BB080B34B4815FF3A /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65111C8931987C4799E6C0BB /* AccessibilityManager.swift */; };
 		718D23BC7B129DFC05AABEC2 /* MonitorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01D2E144AE1C45F0FDB9FBA /* MonitorInfo.swift */; };
+		74E27AA9980ABA389AC13A0A /* VisualEffectBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC9BD10777570A68A1B5DFA /* VisualEffectBackground.swift */; };
 		78E316CD8F4D07D7B38D9384 /* KeyCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511C0879CCEE1BA7E98757E6 /* KeyCodes.swift */; };
 		7D42A462B649AC1BF6B9142F /* SpaceSwitcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E961A805224DAE6EC4908 /* SpaceSwitcherService.swift */; };
 		8FED2ED0DB3A2709255F6AB3 /* MonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625BCCA3E367C8F5C636D3EB /* MonitorManager.swift */; };
@@ -34,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01BA33362420C9BC4093D0EC /* IconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		12768B67B30930BCAEC78382 /* SpaceSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1821E8BB46F8C5B39C68CF0B /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		1F1D73DA7B4FEB34EEA96877 /* SpaceSwitcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitcherApp.swift; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 		D01D2E144AE1C45F0FDB9FBA /* MonitorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorInfo.swift; sourceTree = "<group>"; };
 		F0731CEDE994E470A48867B5 /* CGSPrivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSPrivate.swift; sourceTree = "<group>"; };
 		F5FC4B141B8E046513571E6E /* MonitorMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorMappingView.swift; sourceTree = "<group>"; };
+		FBC9BD10777570A68A1B5DFA /* VisualEffectBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBackground.swift; sourceTree = "<group>"; };
 		FFAADFEE3ABD51E06DD0FED3 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +82,7 @@
 			children = (
 				81701DEDA4E28B472C97E56B /* DesktopGroupEditorView.swift */,
 				5E2D42A485F3BA53DB58580E /* HotkeySettingsView.swift */,
+				01BA33362420C9BC4093D0EC /* IconPicker.swift */,
 				F5FC4B141B8E046513571E6E /* MonitorMappingView.swift */,
 				7263732107A87D03420C4606 /* SettingsView.swift */,
 			);
@@ -90,6 +95,7 @@
 				B5CBF89239D977C5E6018C9B /* OverlayManager.swift */,
 				BCBF2012EF7F2217F044A09E /* OverlayPanel.swift */,
 				C60AE9CD1620F9B149804385 /* OverlayView.swift */,
+				FBC9BD10777570A68A1B5DFA /* VisualEffectBackground.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -206,7 +212,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					986CDBC62A20424E843AE628 = {
+						DevelopmentTeam = "";
+					};
+				};
 			};
 			buildConfigurationList = 3F3FCF3F94E2ED07B2CF2813 /* Build configuration list for PBXProject "SpaceSwitcher" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -222,6 +233,7 @@
 				EDCBF81BD0CA173E5696644D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				0BE94AB6C099E6FFA9B54E11 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -253,6 +265,7 @@
 				A616E75F65BC7F6598F5F83F /* DesktopGroup.swift in Sources */,
 				276907AD7B4E1EB056C7784B /* DesktopGroupEditorView.swift in Sources */,
 				B4F5098928558C30AC9E0680 /* HotkeySettingsView.swift in Sources */,
+				6A511CA2AB59B4DB04BFA6D9 /* IconPicker.swift in Sources */,
 				78E316CD8F4D07D7B38D9384 /* KeyCodes.swift in Sources */,
 				658143785DF5075AC26B6C27 /* MenuBarView.swift in Sources */,
 				718D23BC7B129DFC05AABEC2 /* MonitorInfo.swift in Sources */,
@@ -266,6 +279,7 @@
 				D153813DEA14AAD546D80A04 /* SettingsView.swift in Sources */,
 				19F3467D5592246D46616000 /* SpaceSwitcherApp.swift in Sources */,
 				7D42A462B649AC1BF6B9142F /* SpaceSwitcherService.swift in Sources */,
+				74E27AA9980ABA389AC13A0A /* VisualEffectBackground.swift in Sources */,
 				3AEFBF6C26780356D621E60E /* WindowManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,15 +292,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SpaceSwitcher/SpaceSwitcher.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = NO;
-				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SpaceSwitcher/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -296,7 +307,6 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spaceswitcher.SpaceSwitcher;
 				PRODUCT_NAME = SpaceSwitcher;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -338,12 +348,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = REDACTED;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -364,7 +371,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -405,12 +411,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = REDACTED;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -424,7 +427,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -436,15 +438,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SpaceSwitcher/SpaceSwitcher.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = NO;
-				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SpaceSwitcher/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -454,7 +453,6 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spaceswitcher.SpaceSwitcher;
 				PRODUCT_NAME = SpaceSwitcher;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;

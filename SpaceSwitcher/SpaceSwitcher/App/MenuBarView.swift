@@ -9,6 +9,8 @@ struct MenuBarView: View {
                 appState.switchToGroup(group)
             } label: {
                 HStack {
+                    Image(systemName: group.icon)
+                        .foregroundStyle(group.color)
                     Text(group.name)
                     if appState.activeGroupID == group.id {
                         Spacer()
