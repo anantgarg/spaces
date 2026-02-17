@@ -18,6 +18,11 @@ struct OverlayView: View {
                     ) {
                         onGroupSelected(group)
                     }
+                    .onHover { hovering in
+                        if hovering {
+                            overlayState.focusedIndex = index
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 20)

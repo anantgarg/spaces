@@ -1,5 +1,9 @@
 import AppKit
+import ApplicationServices
 import SwiftUI
+import os.log
+
+private let logger = Logger(subsystem: "com.spaceswitcher.SpaceSwitcher", category: "OverlayManager")
 
 @Observable
 @MainActor
@@ -14,6 +18,8 @@ final class OverlayManager {
     private var overlayState = OverlayState()
     private var clickMonitor: Any?
     private var keyMonitor: Any?
+    private var rightClickMonitor: Any?
+    private var previousAppPID: pid_t?
 
     var isVisible: Bool { panels.contains { $0.isVisible } }
 
@@ -45,12 +51,28 @@ final class OverlayManager {
             overlayState.focusedIndex = 0
         }
 
+        // Capture the frontmost app before our overlay takes focus
+        let myPID = ProcessInfo.processInfo.processIdentifier
+        if let frontApp = NSWorkspace.shared.frontmostApplication,
+           frontApp.processIdentifier != myPID {
+            previousAppPID = frontApp.processIdentifier
+        }
+
         buildPanels()
 
         // Keyboard handling via local monitor (reliable for non-activating panels)
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             guard let self else { return event }
             return self.handleKeyDown(event) ? nil : event
+        }
+
+        // Right-click on overlay icons to move frontmost window
+        rightClickMonitor = NSEvent.addLocalMonitorForEvents(matching: .rightMouseDown) { [weak self] event in
+            guard let self else { return event }
+            let groups = self.appState.groups
+            guard !groups.isEmpty else { return event }
+            self.moveFrontmostWindow(toGroup: groups[self.overlayState.focusedIndex])
+            return nil  // consume the event
         }
 
         // Click-outside dismissal
@@ -117,6 +139,197 @@ final class OverlayManager {
         }
     }
 
+    /// Find a safe point on the title bar to grab. Uses AX to find empty space,
+    /// falls back to right side, then center.
+    private func findTitleBarGrabPoint(axWindow: AXUIElement, position: CGPoint, size: CGSize) -> CGPoint {
+        // Try 1: Find AX title bar element and locate empty space
+        var childrenValue: AnyObject?
+        if AXUIElementCopyAttributeValue(axWindow, kAXChildrenAttribute as CFString, &childrenValue) == .success,
+           let children = childrenValue as? [AXUIElement] {
+            for child in children {
+                var subroleValue: AnyObject?
+                AXUIElementCopyAttributeValue(child, kAXSubroleAttribute as CFString, &subroleValue)
+
+                guard let subrole = subroleValue as? String, subrole == "AXTitleBar" else { continue }
+
+                // Found title bar — get its frame
+                var tbPosValue: AnyObject?
+                var tbSizeValue: AnyObject?
+                AXUIElementCopyAttributeValue(child, kAXPositionAttribute as CFString, &tbPosValue)
+                AXUIElementCopyAttributeValue(child, kAXSizeAttribute as CFString, &tbSizeValue)
+
+                var tbPos = CGPoint.zero
+                var tbSize = CGSize.zero
+                if let p = tbPosValue { AXValueGetValue(p as! AXValue, .cgPoint, &tbPos) }
+                if let s = tbSizeValue { AXValueGetValue(s as! AXValue, .cgSize, &tbSize) }
+                let tbY = tbPos.y + tbSize.height / 2
+
+                // Get all title bar children bounding rects
+                var tbChildrenValue: AnyObject?
+                if AXUIElementCopyAttributeValue(child, kAXChildrenAttribute as CFString, &tbChildrenValue) == .success,
+                   let tbChildren = tbChildrenValue as? [AXUIElement], !tbChildren.isEmpty {
+
+                    // Collect all child rects
+                    var rects: [(x: CGFloat, width: CGFloat)] = []
+                    for tbChild in tbChildren {
+                        var cPosValue: AnyObject?
+                        var cSizeValue: AnyObject?
+                        AXUIElementCopyAttributeValue(tbChild, kAXPositionAttribute as CFString, &cPosValue)
+                        AXUIElementCopyAttributeValue(tbChild, kAXSizeAttribute as CFString, &cSizeValue)
+                        var cPos = CGPoint.zero
+                        var cSize = CGSize.zero
+                        if let p = cPosValue { AXValueGetValue(p as! AXValue, .cgPoint, &cPos) }
+                        if let s = cSizeValue { AXValueGetValue(s as! AXValue, .cgSize, &cSize) }
+                        if cSize.width > 0 {
+                            rects.append((x: cPos.x, width: cSize.width))
+                        }
+                    }
+                    rects.sort { $0.x < $1.x }
+
+                    // Find the largest gap between children (or between last child and right edge)
+                    let tbLeft = tbPos.x
+                    let tbRight = tbPos.x + tbSize.width
+                    var bestGapCenter = tbRight - 20.0
+                    var bestGapWidth: CGFloat = 0
+
+                    // Gap after rightmost child to right edge of title bar
+                    if let last = rects.last {
+                        let gapStart = last.x + last.width
+                        let gapWidth = tbRight - gapStart
+                        if gapWidth > bestGapWidth {
+                            bestGapWidth = gapWidth
+                            bestGapCenter = gapStart + gapWidth / 2
+                        }
+                    }
+
+                    // Gaps between consecutive children
+                    for i in 1..<rects.count {
+                        let gapStart = rects[i - 1].x + rects[i - 1].width
+                        let gapWidth = rects[i].x - gapStart
+                        if gapWidth > bestGapWidth {
+                            bestGapWidth = gapWidth
+                            bestGapCenter = gapStart + gapWidth / 2
+                        }
+                    }
+
+                    // Gap from title bar left edge to first child
+                    if let first = rects.first {
+                        let gapWidth = first.x - tbLeft
+                        if gapWidth > bestGapWidth {
+                            bestGapWidth = gapWidth
+                            bestGapCenter = tbLeft + gapWidth / 2
+                        }
+                    }
+
+                    if bestGapWidth >= 20 {
+                        return CGPoint(x: bestGapCenter, y: tbY)
+                    }
+                }
+
+                // No good gap found, try right side of title bar
+                return CGPoint(x: tbPos.x + tbSize.width - 20, y: tbY)
+            }
+        }
+
+        // Fallback: right side of window (past toolbar area)
+        return CGPoint(x: position.x + size.width - 50, y: position.y + 15)
+    }
+
+    /// Move the frontmost window of the previously active app to the target group's space.
+    /// Grabs window title bar via mouse hold, switches space with Ctrl+Number, then switches back.
+    private func moveFrontmostWindow(toGroup group: DesktopGroup) {
+        guard let pid = previousAppPID else { return }
+
+        let appElement = AXUIElementCreateApplication(pid)
+        var focusedValue: AnyObject?
+        let focusedResult = AXUIElementCopyAttributeValue(appElement, kAXFocusedWindowAttribute as CFString, &focusedValue)
+        guard focusedResult == .success, let windowElement = focusedValue else { return }
+        let axWindow = windowElement as! AXUIElement
+
+        var posValue: AnyObject?
+        AXUIElementCopyAttributeValue(axWindow, kAXPositionAttribute as CFString, &posValue)
+        var sizeValue: AnyObject?
+        AXUIElementCopyAttributeValue(axWindow, kAXSizeAttribute as CFString, &sizeValue)
+
+        var position = CGPoint.zero
+        var size = CGSize.zero
+        if let posValue { AXValueGetValue(posValue as! AXValue, .cgPoint, &position) }
+        if let sizeValue { AXValueGetValue(sizeValue as! AXValue, .cgSize, &size) }
+
+        // Determine which monitor the window is on
+        let windowCenter = CGPoint(x: position.x + size.width / 2, y: position.y + size.height / 2)
+        let monitors = appState.monitors
+        let monitor = monitors.first { $0.frame.contains(windowCenter) } ?? monitors.first
+        guard let monitor else { return }
+        guard let targetDesktop = group.monitorSpaces[monitor.label] else { return }
+
+        let currentSpaces = SpaceSwitcherService.getCurrentSpacePerDisplay()
+        guard let currentSpaceID = currentSpaces[monitor.displayUUID],
+              let currentIdx = monitor.spaces.firstIndex(where: { $0.spaceID == currentSpaceID }),
+              let targetIdx = monitor.spaces.firstIndex(where: { $0.desktopNumber == targetDesktop }) else { return }
+
+        let moves = targetIdx - currentIdx
+        guard moves != 0 else { return }
+
+        // Find a safe grab point on the title bar (avoids tabs, toolbar buttons)
+        let grabPoint = findTitleBarGrabPoint(axWindow: axWindow, position: position, size: size)
+
+        dismiss()
+
+        let app = NSRunningApplication(processIdentifier: pid)
+        app?.activate()
+        let overlayMgr = self
+
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.3) {
+            let source = CGEventSource(stateID: .combinedSessionState)
+
+            // Warp cursor to the safe title bar grab point and hold mouse down
+            CGWarpMouseCursorPosition(grabPoint)
+            usleep(100_000)
+
+            let mouseDown = CGEvent(mouseEventSource: source, mouseType: .leftMouseDown,
+                                     mouseCursorPosition: grabPoint, mouseButton: .left)
+            mouseDown?.post(tap: .cghidEventTap)
+            usleep(200_000)
+
+            // Switch to target space via Ctrl+Number while holding title bar
+            if let mapping = KeyCodes.keyMapping(for: targetDesktop) {
+                let keyDown = CGEvent(keyboardEventSource: source, virtualKey: mapping.keyCode, keyDown: true)
+                keyDown?.flags = mapping.flags
+                keyDown?.post(tap: .cghidEventTap)
+                usleep(50_000)
+                let keyUp = CGEvent(keyboardEventSource: source, virtualKey: mapping.keyCode, keyDown: false)
+                keyUp?.flags = mapping.flags
+                keyUp?.post(tap: .cghidEventTap)
+            }
+
+            usleep(600_000) // wait for space animation
+
+            // Release mouse — window is now on the target space
+            let mouseUp = CGEvent(mouseEventSource: source, mouseType: .leftMouseUp,
+                                   mouseCursorPosition: grabPoint, mouseButton: .left)
+            mouseUp?.post(tap: .cghidEventTap)
+
+            // Switch back to original space
+            usleep(300_000)
+            let originalDesktop = monitor.spaces[currentIdx].desktopNumber
+            if let mapping = KeyCodes.keyMapping(for: originalDesktop) {
+                let keyDown = CGEvent(keyboardEventSource: source, virtualKey: mapping.keyCode, keyDown: true)
+                keyDown?.flags = mapping.flags
+                keyDown?.post(tap: .cghidEventTap)
+                usleep(50_000)
+                let keyUp = CGEvent(keyboardEventSource: source, virtualKey: mapping.keyCode, keyDown: false)
+                keyUp?.flags = mapping.flags
+                keyUp?.post(tap: .cghidEventTap)
+            }
+
+            usleep(500_000)
+            DispatchQueue.main.async {
+                overlayMgr.show()
+            }
+        }
+    }
+
     /// Dismiss the overlay, then switch spaces after a brief delay to avoid flashing.
     private func dismissThenSwitch(_ group: DesktopGroup) {
         dismiss()
@@ -140,6 +353,10 @@ final class OverlayManager {
         if let monitor = keyMonitor {
             NSEvent.removeMonitor(monitor)
             keyMonitor = nil
+        }
+        if let monitor = rightClickMonitor {
+            NSEvent.removeMonitor(monitor)
+            rightClickMonitor = nil
         }
     }
 }
