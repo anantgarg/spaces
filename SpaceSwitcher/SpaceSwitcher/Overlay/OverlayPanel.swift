@@ -16,11 +16,12 @@ final class OverlayPanel: NSPanel {
         collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
         isOpaque = false
         backgroundColor = .clear
-        hasShadow = false
+        hasShadow = true
         isMovableByWindowBackground = false
         hidesOnDeactivate = false
-        appearance = NSAppearance(named: .vibrantDark)
+        appearance = NSAppearance(named: .darkAqua)
         acceptsMouseMovedEvents = true
+        alphaValue = 0.88
     }
 
     // Ensure the panel receives key events even as a non-activating panel

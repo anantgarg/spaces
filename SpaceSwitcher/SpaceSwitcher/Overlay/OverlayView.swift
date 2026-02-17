@@ -32,8 +32,10 @@ struct OverlayView: View {
             .padding(.horizontal, 30)
             .padding(.bottom, 22)
         }
-        .background(VisualEffectBackground(material: .hudWindow, cornerRadius: 22))
-        .clipShape(RoundedRectangle(cornerRadius: 22))
+        .background(
+            RoundedRectangle(cornerRadius: 22)
+                .fill(Color(white: 0.12))
+        )
     }
 }
 

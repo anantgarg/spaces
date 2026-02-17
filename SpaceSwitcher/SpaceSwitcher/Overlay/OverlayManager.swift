@@ -106,9 +106,6 @@ final class OverlayManager {
             .environment(appState)
 
             let hostingView = NSHostingView(rootView: overlayView)
-            if #available(macOS 15.0, *) {
-                hostingView.sceneBridgingOptions = []
-            }
             panel.contentView = hostingView
 
             hostingView.layoutSubtreeIfNeeded()
