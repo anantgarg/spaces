@@ -34,7 +34,7 @@ struct OverlayView: View {
         .padding(.bottom, 12)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color(white: 0.12))
+                .fill(Color(white: 0.35))
         )
         .animation(.easeInOut(duration: 0.15), value: focusedIndex)
     }
@@ -47,8 +47,8 @@ private struct SwitcherIcon: View {
     let isFocused: Bool
     let action: () -> Void
 
-    private let iconSize: CGFloat = 64
-    private let frameSize: CGFloat = 80
+    private let iconSize: CGFloat = 80
+    private let frameSize: CGFloat = 96
 
     var body: some View {
         Button(action: action) {
