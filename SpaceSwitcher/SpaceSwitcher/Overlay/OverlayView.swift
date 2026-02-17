@@ -8,34 +8,32 @@ struct OverlayView: View {
     var body: some View {
         let focusedIndex = overlayState.focusedIndex
 
-        VStack(spacing: 0) {
-            // Focused group name at top
-            if !appState.groups.isEmpty {
-                Text(appState.groups[focusedIndex].name)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(.white.opacity(0.9))
-                    .lineLimit(1)
-                    .padding(.top, 20)
-                    .padding(.bottom, 12)
-            }
-
+        VStack(spacing: 8) {
             // Horizontal icon strip
-            HStack(spacing: 24) {
+            HStack(spacing: 8) {
                 ForEach(Array(appState.groups.enumerated()), id: \.element.id) { index, group in
                     SwitcherIcon(
                         group: group,
-                        isFocused: index == focusedIndex,
-                        shortcutNumber: index + 1
+                        isFocused: index == focusedIndex
                     ) {
                         onGroupSelected(group)
                     }
                 }
             }
-            .padding(.horizontal, 30)
-            .padding(.bottom, 22)
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+
+            // Single centered label for selected item only
+            if !appState.groups.isEmpty {
+                Text(appState.groups[focusedIndex].name)
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundStyle(.white.opacity(0.7))
+                    .lineLimit(1)
+            }
         }
+        .padding(.bottom, 12)
         .background(
-            RoundedRectangle(cornerRadius: 22)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color(white: 0.12))
         )
         .animation(.easeInOut(duration: 0.15), value: focusedIndex)
@@ -47,40 +45,28 @@ struct OverlayView: View {
 private struct SwitcherIcon: View {
     let group: DesktopGroup
     let isFocused: Bool
-    let shortcutNumber: Int
     let action: () -> Void
 
-    private let tileSize: CGFloat = 100
+    private let iconSize: CGFloat = 64
+    private let frameSize: CGFloat = 80
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
-                ZStack {
-                    // Icon tile background - brighter when focused
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(.white.opacity(isFocused ? 0.25 : 0.1))
-                        .frame(width: tileSize, height: tileSize)
-
-                    // Colorful icon
-                    Image(group.icon)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
+            ZStack {
+                // Selection highlight — only for focused item
+                if isFocused {
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(Color.white.opacity(0.10))
+                        .frame(width: frameSize, height: frameSize)
                 }
 
-                // Group name
-                Text(group.name)
-                    .font(.system(size: 13, weight: isFocused ? .bold : .medium))
-                    .foregroundStyle(.white.opacity(isFocused ? 0.95 : 0.6))
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                    .frame(maxWidth: tileSize + 12)
-
-                // Keyboard shortcut hint
-                Text("\u{2303}\(shortcutNumber)")
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.3))
+                // Icon
+                Image(group.icon)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: iconSize, height: iconSize)
             }
+            .frame(width: frameSize, height: frameSize)
         }
         .buttonStyle(.plain)
     }
