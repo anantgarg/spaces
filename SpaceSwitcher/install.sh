@@ -13,10 +13,10 @@ pkill -x "$PROD_NAME" 2>/dev/null && sleep 0.5 || true
 
 # Build release
 echo "Building $PROD_NAME..."
-xcodebuild -project SpaceSwitcher.xcodeproj -scheme SpaceSwitcher -configuration Release build -quiet
+xcodebuild -project SpaceSwitcher.xcodeproj -scheme SpaceSwitcher -configuration Debug build -quiet
 
 # Find the built app
-BUILD_DIR=$(xcodebuild -project SpaceSwitcher.xcodeproj -scheme SpaceSwitcher -configuration Release -showBuildSettings 2>/dev/null | grep -m1 'BUILT_PRODUCTS_DIR' | awk '{print $3}')
+BUILD_DIR=$(xcodebuild -project SpaceSwitcher.xcodeproj -scheme SpaceSwitcher -configuration Debug -showBuildSettings 2>/dev/null | grep -m1 'BUILT_PRODUCTS_DIR' | awk '{print $3}')
 BUILT_APP="$BUILD_DIR/$APP_NAME.app"
 
 # Copy to a temp location for renaming
