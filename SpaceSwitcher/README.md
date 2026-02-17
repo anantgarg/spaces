@@ -2,6 +2,8 @@
 
 A macOS menu bar app that lets you switch all your monitors to a named group of desktops with a single click or hotkey. Think of it as "workspaces" for multi-monitor setups.
 
+![Spaces overlay switcher](screenshot.png)
+
 ## What it does
 
 If you use multiple monitors with multiple macOS Spaces (virtual desktops) on each, switching context means clicking through Mission Control on every screen. Spaces fixes that:
