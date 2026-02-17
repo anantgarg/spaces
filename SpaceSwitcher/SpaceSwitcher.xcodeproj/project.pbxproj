@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19F3467D5592246D46616000 /* SpaceSwitcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D73DA7B4FEB34EEA96877 /* SpaceSwitcherApp.swift */; };
+		276907AD7B4E1EB056C7784B /* DesktopGroupEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81701DEDA4E28B472C97E56B /* DesktopGroupEditorView.swift */; };
+		3AEFBF6C26780356D621E60E /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAADFEE3ABD51E06DD0FED3 /* WindowManager.swift */; };
+		43258A596FDD206BF54E016D /* CGSPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0731CEDE994E470A48867B5 /* CGSPrivate.swift */; };
+		43FFCE9B9289DE0F5D877FE7 /* OverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CBF89239D977C5E6018C9B /* OverlayManager.swift */; };
+		63289137A46C186245F06E95 /* MonitorMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC4B141B8E046513571E6E /* MonitorMappingView.swift */; };
+		658143785DF5075AC26B6C27 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821E8BB46F8C5B39C68CF0B /* MenuBarView.swift */; };
+		6A742D2BB080B34B4815FF3A /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65111C8931987C4799E6C0BB /* AccessibilityManager.swift */; };
+		718D23BC7B129DFC05AABEC2 /* MonitorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01D2E144AE1C45F0FDB9FBA /* MonitorInfo.swift */; };
+		78E316CD8F4D07D7B38D9384 /* KeyCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511C0879CCEE1BA7E98757E6 /* KeyCodes.swift */; };
+		7D42A462B649AC1BF6B9142F /* SpaceSwitcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E961A805224DAE6EC4908 /* SpaceSwitcherService.swift */; };
+		8FED2ED0DB3A2709255F6AB3 /* MonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625BCCA3E367C8F5C636D3EB /* MonitorManager.swift */; };
+		A616E75F65BC7F6598F5F83F /* DesktopGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ADA2FB8CBA785DD97C2585 /* DesktopGroup.swift */; };
+		B4F5098928558C30AC9E0680 /* HotkeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2D42A485F3BA53DB58580E /* HotkeySettingsView.swift */; };
+		B965243B6ED52CDD9BCD207E /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 7EE5FE12DA3AB8BE495CB7D9 /* LaunchAtLogin */; };
+		BAA37BBA066776494258E361 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A83109240AF6FACCC850782 /* AppDelegate.swift */; };
+		BD6EC5B3DEB1DC8A59BAA138 /* NSScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4BC5C2790911E5EE41FB19 /* NSScreen+Extensions.swift */; };
+		BE3D31B78E33FD5995D35368 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D63285519C3081DAFCA6A9F0 /* KeyboardShortcuts */; };
+		D153813DEA14AAD546D80A04 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7263732107A87D03420C4606 /* SettingsView.swift */; };
+		D7D055CE573258AD5269C0BC /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36173B1161C148BCD0DE9910 /* PersistenceManager.swift */; };
+		DAE47A0D4E60CF56B97980B0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C5687B4F304DCC6BB373E4 /* AppState.swift */; };
+		E7B3D15608BD819319068929 /* OverlayPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBF2012EF7F2217F044A09E /* OverlayPanel.swift */; };
+		F35457B14B8EE4D983DF4E80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A5A37978954CFFA4A6F0208 /* Assets.xcassets */; };
+		F5FCC3E292EDF9640E24FEE0 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60AE9CD1620F9B149804385 /* OverlayView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		12768B67B30930BCAEC78382 /* SpaceSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1821E8BB46F8C5B39C68CF0B /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		1F1D73DA7B4FEB34EEA96877 /* SpaceSwitcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitcherApp.swift; sourceTree = "<group>"; };
+		36173B1161C148BCD0DE9910 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		44ADA2FB8CBA785DD97C2585 /* DesktopGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopGroup.swift; sourceTree = "<group>"; };
+		4A5A37978954CFFA4A6F0208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		511C0879CCEE1BA7E98757E6 /* KeyCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodes.swift; sourceTree = "<group>"; };
+		5E2D42A485F3BA53DB58580E /* HotkeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeySettingsView.swift; sourceTree = "<group>"; };
+		625BCCA3E367C8F5C636D3EB /* MonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorManager.swift; sourceTree = "<group>"; };
+		65111C8931987C4799E6C0BB /* AccessibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityManager.swift; sourceTree = "<group>"; };
+		7263732107A87D03420C4606 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		77C5687B4F304DCC6BB373E4 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		7A83109240AF6FACCC850782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		81701DEDA4E28B472C97E56B /* DesktopGroupEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesktopGroupEditorView.swift; sourceTree = "<group>"; };
+		877DBBE0B3AD2EB37C8682ED /* SpaceSwitcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpaceSwitcher.entitlements; sourceTree = "<group>"; };
+		8C4BC5C2790911E5EE41FB19 /* NSScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSScreen+Extensions.swift"; sourceTree = "<group>"; };
+		B5CBF89239D977C5E6018C9B /* OverlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayManager.swift; sourceTree = "<group>"; };
+		B99E961A805224DAE6EC4908 /* SpaceSwitcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitcherService.swift; sourceTree = "<group>"; };
+		BCBF2012EF7F2217F044A09E /* OverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPanel.swift; sourceTree = "<group>"; };
+		C60AE9CD1620F9B149804385 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		D01D2E144AE1C45F0FDB9FBA /* MonitorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorInfo.swift; sourceTree = "<group>"; };
+		F0731CEDE994E470A48867B5 /* CGSPrivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSPrivate.swift; sourceTree = "<group>"; };
+		F5FC4B141B8E046513571E6E /* MonitorMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorMappingView.swift; sourceTree = "<group>"; };
+		FFAADFEE3ABD51E06DD0FED3 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58CE97BA73111674AC0F3BF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE3D31B78E33FD5995D35368 /* KeyboardShortcuts in Frameworks */,
+				B965243B6ED52CDD9BCD207E /* LaunchAtLogin in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07D36685FC00560A22F70562 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				81701DEDA4E28B472C97E56B /* DesktopGroupEditorView.swift */,
+				5E2D42A485F3BA53DB58580E /* HotkeySettingsView.swift */,
+				F5FC4B141B8E046513571E6E /* MonitorMappingView.swift */,
+				7263732107A87D03420C4606 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		350042650CC08CA7806DACDB /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				B5CBF89239D977C5E6018C9B /* OverlayManager.swift */,
+				BCBF2012EF7F2217F044A09E /* OverlayPanel.swift */,
+				C60AE9CD1620F9B149804385 /* OverlayView.swift */,
+			);
+			path = Overlay;
+			sourceTree = "<group>";
+		};
+		3785A22139B7C05152AC1723 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7A83109240AF6FACCC850782 /* AppDelegate.swift */,
+				77C5687B4F304DCC6BB373E4 /* AppState.swift */,
+				1821E8BB46F8C5B39C68CF0B /* MenuBarView.swift */,
+				1F1D73DA7B4FEB34EEA96877 /* SpaceSwitcherApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		940A17EA7D421539AED65B85 = {
+			isa = PBXGroup;
+			children = (
+				B305D56F81C66ADD6D8E8E05 /* SpaceSwitcher */,
+				987761FA91B48584DF52A0A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		987761FA91B48584DF52A0A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				12768B67B30930BCAEC78382 /* SpaceSwitcher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A8EE4A9BAF3B7EC0DD7ADD08 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A5A37978954CFFA4A6F0208 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B305D56F81C66ADD6D8E8E05 /* SpaceSwitcher */ = {
+			isa = PBXGroup;
+			children = (
+				877DBBE0B3AD2EB37C8682ED /* SpaceSwitcher.entitlements */,
+				3785A22139B7C05152AC1723 /* App */,
+				D4377EBE87C331BE00831CBC /* Models */,
+				350042650CC08CA7806DACDB /* Overlay */,
+				A8EE4A9BAF3B7EC0DD7ADD08 /* Resources */,
+				C25C612887605B77E2199D40 /* Services */,
+				07D36685FC00560A22F70562 /* Settings */,
+				B423F1739EE6A0209200ABB8 /* Utilities */,
+			);
+			path = SpaceSwitcher;
+			sourceTree = "<group>";
+		};
+		B423F1739EE6A0209200ABB8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F0731CEDE994E470A48867B5 /* CGSPrivate.swift */,
+				511C0879CCEE1BA7E98757E6 /* KeyCodes.swift */,
+				8C4BC5C2790911E5EE41FB19 /* NSScreen+Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C25C612887605B77E2199D40 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				65111C8931987C4799E6C0BB /* AccessibilityManager.swift */,
+				625BCCA3E367C8F5C636D3EB /* MonitorManager.swift */,
+				36173B1161C148BCD0DE9910 /* PersistenceManager.swift */,
+				B99E961A805224DAE6EC4908 /* SpaceSwitcherService.swift */,
+				FFAADFEE3ABD51E06DD0FED3 /* WindowManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D4377EBE87C331BE00831CBC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				44ADA2FB8CBA785DD97C2585 /* DesktopGroup.swift */,
+				D01D2E144AE1C45F0FDB9FBA /* MonitorInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		986CDBC62A20424E843AE628 /* SpaceSwitcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F57C1CFD4A230E48C15F2A82 /* Build configuration list for PBXNativeTarget "SpaceSwitcher" */;
+			buildPhases = (
+				5E3545D7814B4726D7BFF9A8 /* Sources */,
+				688ED00EAA7549A8F347A1EC /* Resources */,
+				58CE97BA73111674AC0F3BF7 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpaceSwitcher;
+			packageProductDependencies = (
+				D63285519C3081DAFCA6A9F0 /* KeyboardShortcuts */,
+				7EE5FE12DA3AB8BE495CB7D9 /* LaunchAtLogin */,
+			);
+			productName = SpaceSwitcher;
+			productReference = 12768B67B30930BCAEC78382 /* SpaceSwitcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		235F9D3BB53D7B2180E12592 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					986CDBC62A20424E843AE628 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 3F3FCF3F94E2ED07B2CF2813 /* Build configuration list for PBXProject "SpaceSwitcher" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 940A17EA7D421539AED65B85;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EDCBF81BD0CA173E5696644D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				0BE94AB6C099E6FFA9B54E11 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				986CDBC62A20424E843AE628 /* SpaceSwitcher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		688ED00EAA7549A8F347A1EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F35457B14B8EE4D983DF4E80 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5E3545D7814B4726D7BFF9A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A742D2BB080B34B4815FF3A /* AccessibilityManager.swift in Sources */,
+				BAA37BBA066776494258E361 /* AppDelegate.swift in Sources */,
+				DAE47A0D4E60CF56B97980B0 /* AppState.swift in Sources */,
+				43258A596FDD206BF54E016D /* CGSPrivate.swift in Sources */,
+				A616E75F65BC7F6598F5F83F /* DesktopGroup.swift in Sources */,
+				276907AD7B4E1EB056C7784B /* DesktopGroupEditorView.swift in Sources */,
+				B4F5098928558C30AC9E0680 /* HotkeySettingsView.swift in Sources */,
+				78E316CD8F4D07D7B38D9384 /* KeyCodes.swift in Sources */,
+				658143785DF5075AC26B6C27 /* MenuBarView.swift in Sources */,
+				718D23BC7B129DFC05AABEC2 /* MonitorInfo.swift in Sources */,
+				8FED2ED0DB3A2709255F6AB3 /* MonitorManager.swift in Sources */,
+				63289137A46C186245F06E95 /* MonitorMappingView.swift in Sources */,
+				BD6EC5B3DEB1DC8A59BAA138 /* NSScreen+Extensions.swift in Sources */,
+				43FFCE9B9289DE0F5D877FE7 /* OverlayManager.swift in Sources */,
+				E7B3D15608BD819319068929 /* OverlayPanel.swift in Sources */,
+				F5FCC3E292EDF9640E24FEE0 /* OverlayView.swift in Sources */,
+				D7D055CE573258AD5269C0BC /* PersistenceManager.swift in Sources */,
+				D153813DEA14AAD546D80A04 /* SettingsView.swift in Sources */,
+				19F3467D5592246D46616000 /* SpaceSwitcherApp.swift in Sources */,
+				7D42A462B649AC1BF6B9142F /* SpaceSwitcherService.swift in Sources */,
+				3AEFBF6C26780356D621E60E /* WindowManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1352D924ACD0390C4EAAAEB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SpaceSwitcher/SpaceSwitcher.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = SpaceSwitcher/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spaceswitcher.SpaceSwitcher;
+				PRODUCT_NAME = SpaceSwitcher;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		20CD3B9A92ACCA8E87ECC6F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		265005F5B4BEC2A098C75392 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		75704790AFACDD3DDB0EA903 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SpaceSwitcher/SpaceSwitcher.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = SpaceSwitcher/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spaceswitcher.SpaceSwitcher;
+				PRODUCT_NAME = SpaceSwitcher;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3F3FCF3F94E2ED07B2CF2813 /* Build configuration list for PBXProject "SpaceSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20CD3B9A92ACCA8E87ECC6F9 /* Debug */,
+				265005F5B4BEC2A098C75392 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F57C1CFD4A230E48C15F2A82 /* Build configuration list for PBXNativeTarget "SpaceSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1352D924ACD0390C4EAAAEB6 /* Debug */,
+				75704790AFACDD3DDB0EA903 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0BE94AB6C099E6FFA9B54E11 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+		EDCBF81BD0CA173E5696644D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7EE5FE12DA3AB8BE495CB7D9 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BE94AB6C099E6FFA9B54E11 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+		D63285519C3081DAFCA6A9F0 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EDCBF81BD0CA173E5696644D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 235F9D3BB53D7B2180E12592 /* Project object */;
+}
