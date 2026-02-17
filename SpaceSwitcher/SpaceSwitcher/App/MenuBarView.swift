@@ -24,6 +24,12 @@ struct MenuBarView: View {
             Divider()
         }
 
+        Button("Show Switcher") {
+            NotificationCenter.default.post(name: .showOverlay, object: nil)
+        }
+
+        Divider()
+
         SettingsLink {
             Text("Settings\u{2026}")
         }

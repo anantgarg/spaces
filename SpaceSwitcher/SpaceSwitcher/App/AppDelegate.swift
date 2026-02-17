@@ -5,6 +5,10 @@ extension KeyboardShortcuts.Name {
     static let toggleOverlay = Self("toggleOverlay", default: .init(.space, modifiers: .option))
 }
 
+extension Notification.Name {
+    static let showOverlay = Notification.Name("showOverlay")
+}
+
 final class AppDelegate: NSObject, NSApplicationDelegate {
     let appState = AppState()
     private var overlayManager: OverlayManager?
@@ -23,6 +27,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
 
+        // Listen for "Show Switcher" from menu bar
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showOverlay),
+            name: .showOverlay,
+            object: nil
+        )
+
         // Monitor display configuration changes
         NotificationCenter.default.addObserver(
             self,
@@ -38,6 +50,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
             }
+        }
+    }
+
+    @objc private func showOverlay() {
+        let manager = overlayManager
+        Task { @MainActor in
+            manager?.show()
         }
     }
 
