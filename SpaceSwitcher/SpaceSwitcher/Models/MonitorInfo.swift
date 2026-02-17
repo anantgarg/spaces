@@ -15,4 +15,13 @@ struct MonitorInfo: Identifiable, Hashable {
     var spaces: [SpaceInfo] = []
 
     var desktopNumbers: [Int] { spaces.map(\.desktopNumber) }
+
+    /// Per-monitor 1-based indices: [1, 2, 3, ...]
+    var spaceIndices: [Int] { Array(1...max(spaces.count, 1)) }
+
+    /// Look up a space by its per-monitor 1-based index.
+    func spaceInfo(forIndex index: Int) -> SpaceInfo? {
+        guard index >= 1, index <= spaces.count else { return nil }
+        return spaces[index - 1]
+    }
 }

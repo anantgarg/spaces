@@ -15,8 +15,8 @@ struct MonitorMappingView: View {
                 .foregroundStyle(.secondary)
 
             Picker("", selection: $spaceNumber) {
-                ForEach(monitor.desktopNumbers, id: \.self) { n in
-                    Text(labelForDesktop(n)).tag(n)
+                ForEach(monitor.spaceIndices, id: \.self) { index in
+                    Text(labelForIndex(index)).tag(index)
                 }
             }
             .labelsHidden()
@@ -24,8 +24,9 @@ struct MonitorMappingView: View {
         }
     }
 
-    private func labelForDesktop(_ desktopNumber: Int) -> String {
-        let usedBy = allGroups.filter { $0.id != currentGroupID && $0.monitorSpaces[monitor.id] == desktopNumber }
+    private func labelForIndex(_ index: Int) -> String {
+        let desktopNumber = monitor.spaceInfo(forIndex: index)?.desktopNumber ?? index
+        let usedBy = allGroups.filter { $0.id != currentGroupID && $0.monitorSpaces[monitor.id] == index }
         if let group = usedBy.first {
             return "Desktop \(desktopNumber) (used by \(group.name))"
         }

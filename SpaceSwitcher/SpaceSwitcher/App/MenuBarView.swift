@@ -31,8 +31,9 @@ struct MenuBarView: View {
             addGroupFromMenu()
         }
 
-        SettingsLink {
-            Text("Settings\u{2026}")
+        Button("Settings\u{2026}") {
+            openSettings()
+            NotificationCenter.default.post(name: .showSettings, object: nil)
         }
 
         Divider()
@@ -47,10 +48,10 @@ struct MenuBarView: View {
         let currentSpaces = SpaceSwitcherService.getCurrentSpacePerDisplay()
         let monitorSpaces = Dictionary(uniqueKeysWithValues: appState.monitors.map { monitor -> (String, Int) in
             if let currentSpaceID = currentSpaces[monitor.displayUUID],
-               let spaceInfo = monitor.spaces.first(where: { $0.spaceID == currentSpaceID }) {
-                return (monitor.id, spaceInfo.desktopNumber)
+               let idx = monitor.spaces.firstIndex(where: { $0.spaceID == currentSpaceID }) {
+                return (monitor.id, idx + 1)  // 1-based per-monitor index
             }
-            return (monitor.id, monitor.desktopNumbers.first ?? 1)
+            return (monitor.id, 1)
         })
 
         let appearance = DesktopGroup.randomAppearance()
@@ -60,5 +61,6 @@ struct MenuBarView: View {
         appState.pendingSelectGroupID = newGroup.id
 
         openSettings()
+        NotificationCenter.default.post(name: .showSettings, object: nil)
     }
 }

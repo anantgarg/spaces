@@ -31,7 +31,7 @@ struct DesktopGroupEditorView: View {
                     MonitorMappingView(
                         monitor: monitor,
                         spaceNumber: Binding(
-                            get: { monitorSpaces[monitor.id] ?? monitor.desktopNumbers.first ?? 1 },
+                            get: { monitorSpaces[monitor.id] ?? 1 },
                             set: { monitorSpaces[monitor.id] = $0 }
                         ),
                         currentGroupID: group.id,

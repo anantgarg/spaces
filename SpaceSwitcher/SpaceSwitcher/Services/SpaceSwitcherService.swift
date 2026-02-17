@@ -37,15 +37,15 @@ enum SpaceSwitcherService {
         var desktopsToSwitch: [Int] = []
 
         for monitor in monitors {
-            guard let desktopNumber = group.monitorSpaces[monitor.id] else {
-                logger.warning("  Monitor '\(monitor.id, privacy: .public)': no desktop number in group, skipping")
+            guard let spaceIndex = group.monitorSpaces[monitor.id] else {
+                logger.warning("  Monitor '\(monitor.id, privacy: .public)': no space index in group, skipping")
                 continue
             }
-            guard let spaceInfo = monitor.spaces.first(where: { $0.desktopNumber == desktopNumber }) else {
-                let available = monitor.desktopNumbers.map { String($0) }.joined(separator: ",")
-                logger.warning("  Monitor '\(monitor.id, privacy: .public)': no spaceInfo for desktop \(desktopNumber), available: \(available, privacy: .public), skipping")
+            guard let spaceInfo = monitor.spaceInfo(forIndex: spaceIndex) else {
+                logger.warning("  Monitor '\(monitor.id, privacy: .public)': no spaceInfo for index \(spaceIndex), available: 1...\(monitor.spaces.count), skipping")
                 continue
             }
+            let desktopNumber = spaceInfo.desktopNumber
             guard !monitor.displayUUID.isEmpty else {
                 logger.warning("  Monitor '\(monitor.id, privacy: .public)': empty displayUUID, skipping")
                 continue

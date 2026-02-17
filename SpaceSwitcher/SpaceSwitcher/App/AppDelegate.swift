@@ -7,6 +7,7 @@ extension KeyboardShortcuts.Name {
 
 extension Notification.Name {
     static let showOverlay = Notification.Name("showOverlay")
+    static let showSettings = Notification.Name("showSettings")
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -35,6 +36,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             object: nil
         )
 
+        // Listen for "Show Settings" requests
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showSettings),
+            name: .showSettings,
+            object: nil
+        )
+
         // Monitor display configuration changes
         NotificationCenter.default.addObserver(
             self,
@@ -57,6 +66,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if appState.groups.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+                self.bringSettingsToFront()
             }
         }
     }
@@ -65,6 +75,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         guard let window = notification.object as? NSWindow,
               !(window is OverlayPanel) else { return }
         window.collectionBehavior.insert(.moveToActiveSpace)
+    }
+
+    @objc private func showSettings() {
+        bringSettingsToFront()
+    }
+
+    private func bringSettingsToFront() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            NSApp.activate(ignoringOtherApps: true)
+            for window in NSApp.windows where !(window is OverlayPanel) && window.canBecomeKey && window.isVisible {
+                window.level = .floating
+                window.makeKeyAndOrderFront(nil)
+                DispatchQueue.main.async {
+                    window.level = .normal
+                }
+            }
+        }
     }
 
     @objc private func showOverlay() {

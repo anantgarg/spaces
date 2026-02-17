@@ -6,7 +6,7 @@ struct DesktopGroup: Identifiable, Codable, Hashable {
     var name: String
     var icon: String       // Icon asset name
     var colorName: String  // Unused legacy field, kept for decoding compatibility
-    var monitorSpaces: [String: Int]  // "Left" → 2, "Right" → 3
+    var monitorSpaces: [String: Int]  // "Left" → 3 means "3rd space on Left monitor" (1-based per-monitor index)
 
     init(id: UUID = UUID(), name: String, icon: String = "Labtop",
          colorName: String = "blue", monitorSpaces: [String: Int] = [:]) {
